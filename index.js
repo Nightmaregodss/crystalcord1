@@ -47,6 +47,7 @@ bot.on("message", async message => {
 })
 
 bot.login(botsettings.token);
+
 let Discord2;
 let Database;
 let moment;
@@ -59,7 +60,6 @@ if (typeof window !== "undefined") {
     Database = require("easy-json-database");
     moment = require('moment');
 }
-
 const {
     MessageButton,
     MessageActionRow,
@@ -116,7 +116,7 @@ s4d.client.on('clickButton', async (button) => {
 s4d.client.on('message', async (s4dmessage) => {
     if (String(((s4dmessage.content).toUpperCase())).includes(String('T! TEST'))) {
         let embed = new Discord.MessageEmbed()
-        embed.setAuthor('AHQ Miness YT', ((((s4d.client.guilds.cache.get('841590705382359090')).members.cache.get('849690256945184828') || await (s4d.client.guilds.cache.get('841590705382359090')).members.fetch('849690256945184828'))).user.displayAvatarURL()));
+        embed.setAuthor('Poke Phantom', ((((s4d.client.guilds.cache.get('841590705382359090')).members.cache.get('796058865094492190') || await (s4d.client.guilds.cache.get('841590705382359090')).members.fetch('849690256945184828'))).user.displayAvatarURL()));
         embed.setDescription((['⭐ help commands ⭐', '\n', '➡ ?mod help', '\n', '✅ u can get every moderation related commands here ✅', '\n', '💠 type ?help (cmnd) to know more about it 💠'].join('')));
 
         s4dmessage.channel.send(embed);
