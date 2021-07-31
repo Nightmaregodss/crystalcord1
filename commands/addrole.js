@@ -1,5 +1,5 @@
 module.exports.run = async (bot, message, args) => {
-    let epicRole = message.guild.roles.cache.get('ROLE_ID_HERE');
+    let epicRole = message.guild.roles.cache.get('841590705441079363');
     const member = message.mentions.members.first();
 
     member.roles.add(epicRole);
