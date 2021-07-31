@@ -47,3 +47,93 @@ bot.on("message", async message => {
 })
 
 bot.login(botsettings.token);
+let Discord2;
+let Database;
+let moment;
+if (typeof window !== "undefined") {
+    Discord2 = DiscordJS;
+    Database = EasyDatabase;
+    moment = Momentl;
+} else {
+    Discord2 = require("discord.js");
+    Database = require("easy-json-database");
+    moment = require('moment');
+}
+
+const {
+    MessageButton,
+    MessageActionRow,
+    MessageMenu,
+    MessageMenuOption
+} = require("discord-buttons")
+const delay = (ms) => new Promise((resolve) => setTimeout(() => resolve(), ms));
+const s4d = {
+    Discord2,
+    client: null,
+    tokenInvalid: false,
+    reply: null,
+    joiningMember: null,
+    database: new Database("./db.json"),
+    checkMessageExists() {
+        if (!s4d.client) throw new Error('You cannot perform message operations without a Discord.js client')
+        if (!s4d.client.readyTimestamp) throw new Error('You cannot perform message operations while the bot is not connected to the Discord API')
+    }
+};
+s4d.client = new s4d.Discord2.Client({
+    fetchAllMembers: true
+});
+require('discord-buttons')(s4d.client);
+
+function mainchannel(guild) {
+    let channelID;
+    let channels = guild.channels.cache;
+    for (let in channels) {
+        if (channels[i].type === "text" && channels[i].permissionsFor(guild.me).has('SEND_MESSAGES')) {
+            channelID = channels[i]
+            return channelID.id
+        }
+    }
+    return null
+}
+s4d.client.on('raw', async (packet) => {
+    if (['MESSAGE_REACTION_ADD', 'MESSAGE_REACTION_REMOVE'].includes(packet.t)) {
+        const guild = s4d.client.guilds.cache.get(packet.d.guild_id);
+        if (!guild) return;
+        const member = guild.members.cache.get(packet.d.user_id) || guild.members.fetch(d.user_id).catch(() => {});
+        if (!member) return;
+        const channel = s4d.client.channels.cache.get(packet.d.channel_id);
+        if (!channel) return;
+        const message = channel.messages.cache.get(packet.d.message_id) || await channel.messages.fetch(packet.d.message_id).catch(() => {});
+        if (!message) return;
+        s4d.client.emit(packet.t, guild, channel, message, member, packet.d.emoji.name);
+    }
+});
+s4d.client.login(botsettings.token);
+s4d.client.on('clickButton', async (button) => {
+    await button.reply.send('TEST', true)
+
+});
+s4d.client.on('message', async (s4dmessage) => {
+    if (String(((s4dmessage.content).toUpperCase())).includes(String('T! TEST'))) {
+        let embed = new Discord.MessageEmbed()
+        embed.setAuthor('AHQ Miness YT', ((((s4d.client.guilds.cache.get('841590705382359090')).members.cache.get('849690256945184828') || await (s4d.client.guilds.cache.get('841590705382359090')).members.fetch('849690256945184828'))).user.displayAvatarURL()));
+        embed.setDescription((['⭐ help commands ⭐', '\n', '➡ ?mod help', '\n', '✅ u can get every moderation related commands here ✅', '\n', '💠 type ?help (cmnd) to know more about it 💠'].join('')));
+
+        s4dmessage.channel.send(embed);
+        (s4dmessage.channel).send(String('TEST'), (new MessageActionRow()
+            .addComponents(new MessageButton()
+                .setID('0')
+                .setLabel((s4dmessage.content))
+                .setStyle('red'),
+                new MessageButton()
+                .setID('1')
+                .setLabel('1')
+                .setStyle('red'),
+                new MessageButton()
+                .setID('3')
+                .setLabel('2')
+                .setStyle('red'),
+            )));
+    }
+
+});
