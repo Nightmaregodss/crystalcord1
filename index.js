@@ -169,7 +169,7 @@ s4d.client.on('message', async (s4dmessage) => {
                 .addComponents(new MessageButton()
                     .setID('1')
                     .setLabel('Yes')
-                    .setStyle('red'),
+                    .setStyle('green'),
                     new MessageButton()
                     .setID('2')
                     .setLabel('No')
