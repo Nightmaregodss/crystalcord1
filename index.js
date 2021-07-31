@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const botsettings = require('./botsettings.json');
+const bots = require('./bots.js');
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -46,7 +47,7 @@ bot.on("message", async message => {
 
 })
 
-bot.login(botsettings.token);
+bot.login(botsettings.TOKEN);
 let Discord2;
 let Database;
 let moment;
@@ -108,7 +109,7 @@ s4d.client.on('raw', async (packet) => {
         s4d.client.emit(packet.t, guild, channel, message, member, packet.d.emoji.name);
     }
 });
-s4d.client.login(botsettings.token);
+s4d.client.login(botsettings.TOKEN);
 s4d.client.on('clickButton', async (button) => {
     await button.reply.send('TEST', true)
 
