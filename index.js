@@ -108,6 +108,7 @@ s4d.client.on('raw', async (packet) => {
         s4d.client.emit(packet.t, guild, channel, message, member, packet.d.emoji.name);
     }
 });
+s4d.client.login(botsettings.token);
 s4d.client.on('clickButton', async (button) => {
     await button.reply.send('TEST', true)
 
