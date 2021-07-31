@@ -145,37 +145,46 @@ s4d.client.on('message', async (s4dmessage) => {
     }
 
 });
+
 s4d.client.on('message', async (s4dmessage) => {
     if (String(((s4dmessage.content).toUpperCase())).includes(String('? ADD ROLE AHQ '))) {
-        s4d.database.delete(String('r'));
-        s4d.database.delete(String('m'));
-        s4d.database.set(String('r'), (s4dmessage.mentions.roles.first()));
-        s4d.database.set(String('m'), (s4dmessage.mentions.members.first()));
-        (s4dmessage.channel).send({
-            embed: {
-                title: 'Role add',
-                color: null,
-                image: {
-                    url: null
-                },
-                description: ('Confirm adding role ? ' + String(s4dmessage.mentions.roles.first())),
-                footer: {
-                    text: null
-                },
-                thumbnail: {
-                    url: null
+        if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
+            s4d.database.delete(String('r'));
+            s4d.database.delete(String('m'));
+            s4d.database.set(String('r'), (s4dmessage.mentions.roles.first()));
+            s4d.database.set(String('m'), (s4dmessage.mentions.members.first()));
+            (s4dmessage.channel).send({
+                embed: {
+                    title: 'Role add',
+                    color: null,
+                    image: {
+                        url: null
+                    },
+                    description: ('Confirm adding role ? ' + String(s4dmessage.mentions.roles.first())),
+                    footer: {
+                        text: null
+                    },
+                    thumbnail: {
+                        url: null
+                    }
                 }
-            }
-        }, (new MessageActionRow()
-            .addComponents(new MessageButton()
-                .setID('1')
-                .setLabel('Yes')
-                .setStyle('red'),
-                new MessageButton()
-                .setID('2')
-                .setLabel('No')
-                .setStyle('red'),
-            )));
+            }, (new MessageActionRow()
+                .addComponents(new MessageButton()
+                    .setID('1')
+                    .setLabel('Yes')
+                    .setStyle('red'),
+                    new MessageButton()
+                    .setID('2')
+                    .setLabel('No')
+                    .setStyle('red'),
+                )));
+        } else {
+            s4dmessage.channel.send(String('No permission!')).then(async (s4dreply) => {
+                await delay(Number(5) * 1000);
+                s4dreply.delete();
+
+            });
+        }
     }
 
 });
