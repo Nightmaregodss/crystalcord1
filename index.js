@@ -108,14 +108,25 @@ s4d.client.on('raw', async (packet) => {
         s4d.client.emit(packet.t, guild, channel, message, member, packet.d.emoji.name);
     }
 });
+var my_1;
 s4d.client.login(botsettings.token);
 
 s4d.client.on('clickButton', async (button) => {
     if ((button.id) == '1') {
-        await button.reply.send('Trying to add the role', false)
-        s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
+        if (my_1 == '0') {
+            await button.reply.send('Trying to add the role', false)
+            s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
+            my_1 = '1';
+        } else {
+            await button.reply.send('Button Already used', false)
+        }
     } else if ((button.id) == '2') {
-        await button.reply.send('Cancelled', false)
+        if (my_1 == '0') {
+            await button.reply.send('Cancelled', false)
+            my_1 = '1';
+        } else {
+            await button.reply.send('Button Already used', false)
+        }
     } else {
         await button.reply.send('TEST', true)
     }
@@ -148,6 +159,7 @@ s4d.client.on('message', async (s4dmessage) => {
 
 s4d.client.on('message', async (s4dmessage) => {
     if (String(((s4dmessage.content).toUpperCase())).includes(String('? ADD ROLE AHQ '))) {
+        my_1 = '0';
         if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
             s4d.database.delete(String('r'));
             s4d.database.delete(String('m'));
