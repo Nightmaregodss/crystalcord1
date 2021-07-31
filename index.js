@@ -47,6 +47,7 @@ bot.on("message", async message => {
 })
 
 bot.login(botsettings.token);
+
 let Discord2;
 let Database;
 let moment;
@@ -59,7 +60,6 @@ if (typeof window !== "undefined") {
     Database = require("easy-json-database");
     moment = require('moment');
 }
-
 const {
     MessageButton,
     MessageActionRow,
@@ -108,15 +108,34 @@ s4d.client.on('raw', async (packet) => {
         s4d.client.emit(packet.t, guild, channel, message, member, packet.d.emoji.name);
     }
 });
+var my_1;
 s4d.client.login(botsettings.token);
+
 s4d.client.on('clickButton', async (button) => {
-    await button.reply.send('TEST', true)
+    if ((button.id) == '1') {
+        if (my_1 == '0') {
+            await button.reply.send('Trying to add the role', false)
+            s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
+            my_1 = '1';
+        } else {
+            await button.reply.send('Button Already used', false)
+        }
+    } else if ((button.id) == '2') {
+        if (my_1 == '0') {
+            await button.reply.send('Cancelled', false)
+            my_1 = '1';
+        } else {
+            await button.reply.send('Button Already used', false)
+        }
+    } else {
+        await button.reply.send('TEST', true)
+    }
 
 });
 s4d.client.on('message', async (s4dmessage) => {
     if (String(((s4dmessage.content).toUpperCase())).includes(String('T! TEST'))) {
         let embed = new Discord.MessageEmbed()
-        embed.setAuthor('AHQ Miness YT', ((((s4d.client.guilds.cache.get('841590705382359090')).members.cache.get('849690256945184828') || await (s4d.client.guilds.cache.get('841590705382359090')).members.fetch('849690256945184828'))).user.displayAvatarURL()));
+        embed.setAuthor('Poke Phantom', ((((s4d.client.guilds.cache.get('841590705382359090')).members.cache.get('796058865094492190') || await (s4d.client.guilds.cache.get('841590705382359090')).members.fetch('796058865094492190'))).user.displayAvatarURL()));
         embed.setDescription((['⭐ help commands ⭐', '\n', '➡ ?mod help', '\n', '✅ u can get every moderation related commands here ✅', '\n', '💠 type ?help (cmnd) to know more about it 💠'].join('')));
 
         s4dmessage.channel.send(embed);
@@ -134,6 +153,35 @@ s4d.client.on('message', async (s4dmessage) => {
                 .setLabel('2')
                 .setStyle('red'),
             )));
+    }
+
+});
+
+s4d.client.on('message', async (s4dmessage) => {
+    if (String(((s4dmessage.content).toUpperCase())).includes(String('? ADD ROLE AHQ '))) {
+        my_1 = '0';
+        if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
+            s4d.database.delete(String('r'));
+            s4d.database.delete(String('m'));
+            s4d.database.set(String('r'), (s4dmessage.mentions.roles.first()));
+            s4d.database.set(String('m'), (s4dmessage.mentions.members.first()));
+            (s4dmessage.channel).send(String(('Confirm adding role ? ' + String(s4dmessage.mentions.roles.first()))), (new MessageActionRow()
+                .addComponents(new MessageButton()
+                    .setID('1')
+                    .setLabel('Yes')
+                    .setStyle('green'),
+                    new MessageButton()
+                    .setID('2')
+                    .setLabel('No')
+                    .setStyle('red'),
+                )));
+        } else {
+            s4dmessage.channel.send(String('No permission!')).then(async (s4dreply) => {
+                await delay(Number(5) * 1000);
+                s4dreply.delete();
+
+            });
+        }
     }
 
 });
