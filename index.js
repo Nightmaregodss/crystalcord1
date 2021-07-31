@@ -118,14 +118,14 @@ s4d.client.on('clickButton', async (button) => {
             s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
             my_1 = '1';
         } else {
-            await button.reply.send('Button Already used', false)
+            await button.reply.send('Button Already used', true)
         }
     } else if ((button.id) == '2') {
         if (my_1 == '0') {
             await button.reply.send('Cancelled', false)
             my_1 = '1';
         } else {
-            await button.reply.send('Button Already used', false)
+            await button.reply.send('Button Already used', true)
         }
     } else {
         await button.reply.send('TEST', true)
