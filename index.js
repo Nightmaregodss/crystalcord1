@@ -158,7 +158,7 @@ s4d.client.on('message', async (s4dmessage) => {
 });
 
 s4d.client.on('message', async (s4dmessage) => {
-    if (String(((s4dmessage.content).toUpperCase())).includes(String('? ADD ROLE AHQ '))) {
+    if (String(((s4dmessage.content).toUpperCase())).includes(String('?ADD ROLEB '))) {
         my_1 = '0';
         if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
             s4d.database.delete(String('r'));
