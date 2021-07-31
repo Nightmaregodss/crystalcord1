@@ -109,8 +109,16 @@ s4d.client.on('raw', async (packet) => {
     }
 });
 s4d.client.login(botsettings.token);
+
 s4d.client.on('clickButton', async (button) => {
-    await button.reply.send('TEST', true)
+    if ((button.id) == '1') {
+        await button.reply.send('Trying to add the role', false)
+        s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
+    } else if ((button.id) == '2') {
+        await button.reply.send('Cancelled', false)
+    } else {
+        await button.reply.send('TEST', true)
+    }
 
 });
 s4d.client.on('message', async (s4dmessage) => {
@@ -132,6 +140,40 @@ s4d.client.on('message', async (s4dmessage) => {
                 new MessageButton()
                 .setID('3')
                 .setLabel('2')
+                .setStyle('red'),
+            )));
+    }
+
+});
+s4d.client.on('message', async (s4dmessage) => {
+    if (String(((s4dmessage.content).toUpperCase())).includes(String('? ADD ROLE AHQ '))) {
+        s4d.database.delete(String('r'));
+        s4d.database.delete(String('m'));
+        s4d.database.set(String('r'), (s4dmessage.mentions.roles.first()));
+        s4d.database.set(String('m'), (s4dmessage.mentions.members.first()));
+        (s4dmessage.channel).send({
+            embed: {
+                title: 'Role add',
+                color: null,
+                image: {
+                    url: null
+                },
+                description: ('Confirm adding role ? ' + String(s4dmessage.mentions.roles.first())),
+                footer: {
+                    text: null
+                },
+                thumbnail: {
+                    url: null
+                }
+            }
+        }, (new MessageActionRow()
+            .addComponents(new MessageButton()
+                .setID('1')
+                .setLabel('Yes')
+                .setStyle('red'),
+                new MessageButton()
+                .setID('2')
+                .setLabel('No')
                 .setStyle('red'),
             )));
     }
