@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 const randomPuppy = require('random-puppy');
 
 module.exports.run = async (bot, message, args) => {
-    const subReddits = ["meme", "me_irl", "dankmeme"]
+    const subReddits = ["meme", "meme", "meme"]
     const random = subReddits[Math.floor(Math.random() * subReddits.length)];
     const img = await randomPuppy(random);
 
     const embed = new Discord.MessageEmbed()
     .setImage(img)
-    .setTitle(`From /r/${random}`)
+    .setTitle(`here is ${random}`)
     .setURL(`http://reddit.com/${random}`)
 
     message.channel.send(embed);

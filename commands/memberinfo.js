@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 const moment = require('moment');
 
 module.exports.run = async (bot, message, args) => {
-    let userArray = message.content.split(" ");
+    let userArray = message.content.split("");
     let userArgs = userArray.slice(1);
     let member = message.mentions.members.first() || message.guild.members.cache.get(userArgs[0]) || message.guild.members.cache.find(x => x.user.username.toLowerCase() === userArgs.slice(0).join(" ") || x.user.username === userArgs[0]) || message.member;
 
@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) => {
     .addField("Member ID", member.id)
     .addField('Roles', `<@&${member._roles.join('> <@&')}>`)
     .addField("Account Created On:", ` ${moment.utc(member.user.createdAt).format("dddd, MMMM Do YYYY")}`, true) 
-    .addField('Joined the server At', `${joineddate} \n> ${joined} day(S) Ago`)
+    .addField('Joined the server At', `${joineddate} \n> ${joined} days Ago`)
     .addField("Status", status)
 
     message.channel.send(userEmbed);

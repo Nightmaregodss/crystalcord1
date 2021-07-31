@@ -1,0 +1,24 @@
+{
+  "dependencies": {
+    "discord.js": "^12.5.3",
+    "moment": "^2.29.1",
+    "random-puppy": "^1.1.0"
+  },
+  "name": "crystalcord1",
+  "version": "1.0.0",
+  "description": "a awesome bot",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legendaryryuga/crystalcord1.git"
+  },
+  "author": "moonsog/pokephantom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/legendaryryuga/crystalcord1/issues"
+  },
+  "homepage": "https://github.com/legendaryryuga/crystalcord1#readme"
+}

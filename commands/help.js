@@ -13,11 +13,11 @@ module.exports.run = async (bot, message, args) => {
     //Normal usage of (prefix)help without any args. (Shows all of the commands and you should set the commands yourself)
     if(!helpArgs[0]) {
         var embed = new Discord.MessageEmbed()
-            .setAuthor(`Here is the Avaible Commands to use:`)
-            .setDescription('```hi | hello | mute | unmute | addrole | removerole | embed | kick | ban```')
-            .addFields({ name: 'Prefix', value: '```?```', inline: true})
-            .setColor('#00FFF3')
-            
+            .setAuthor(`Want Help?`)
+            .setDescription('```\n\n?mod help\nshows all modareter commands that mods can use\n\n?fun help\nyour board then this commands can help you.\n\n?other help\nall the other commands.```')
+            .addFields({ name: 'discord server!', value: '```https://discord.com/invite/kWXuQ7gw```', inline: true})
+            .setColor('#7f7fff')
+            .setTimestamp()
         message.channel.send(embed);
     }
 
@@ -31,10 +31,10 @@ module.exports.run = async (bot, message, args) => {
             var embed = new Discord.MessageEmbed()
             .setAuthor(`${command.config.name} Command`)
             .setDescription(`
-            - **Command's Description** __${command.config.description || "There is no Description for this command."}__
-            - **Command's Usage:** __${command.config.usage || "No Usage"}__
-            - **Command's Permissions:** __${command.config.accessableby || "Members"}__
-            - **Command's Aliases:** __${command.config.aliases || "No Aliases"}__
+            - **Command's Description** __${command.config.description || "There is no Description for this command."}no description for these command
+            - **Command's Usage:** __${command.config.usage || "No Usage"}no useage for these command
+            - **Command's Permissions:** __${command.config.accessableby || "Members"}no permission for these command
+            - **Command's Aliases:** __${command.config.aliases || "No Aliases"}no aliases for these command
             `)
             .setColor('#2EFF00')
 
