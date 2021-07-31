@@ -1,6 +1,8 @@
 {
   "dependencies": {
+    "discord-buttons": "^4.0.0",
     "discord.js": "^12.5.3",
+    "easy-json-database": "^1.5.0",
     "moment": "^2.29.1",
     "random-puppy": "^1.1.0"
   },
