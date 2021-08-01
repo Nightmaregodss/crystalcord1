@@ -1,7 +1,7 @@
 const botsettings = require('./botsettings.json')
 const Discord = require('discord.js')
 const Client = new Discord.Client()
-const db = require('quick.db')
+const db = require('easy-json-database')
 const fs = require('fs')
 Client.commands = new Discord.Collection();
 Client.aliases = new Discord.Collection();
