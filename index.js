@@ -118,14 +118,14 @@ s4d.client.on('clickButton', async (button) => {
             s4d.database.get(String('m')).roles.add(s4d.database.get(String('r')));
             my_1 = '1';
         } else {
-            await button.reply.send('Button Already used', false)
+            await button.reply.send('Button Already used', true)
         }
     } else if ((button.id) == '2') {
         if (my_1 == '0') {
             await button.reply.send('Cancelled', false)
             my_1 = '1';
         } else {
-            await button.reply.send('Button Already used', false)
+            await button.reply.send('Button Already used', true)
         }
     } else {
         await button.reply.send('TEST', true)
@@ -158,7 +158,11 @@ s4d.client.on('message', async (s4dmessage) => {
 });
 
 s4d.client.on('message', async (s4dmessage) => {
+<<<<<<< HEAD
     if (String(((s4dmessage.content).toUpperCase())).includes(String('?addrole '))) {
+=======
+    if (String(((s4dmessage.content).toUpperCase())).includes(String('?ADD ROLEB '))) {
+>>>>>>> e2107bb92e46db3dbb786c0a4915e933fe534839
         my_1 = '0';
         if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
             s4d.database.delete(String('r'));
