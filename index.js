@@ -227,3 +227,4 @@ s4d.client.on('message', async (s4dmessage) => {
     }
 
 });
+require("./ahqhelpmenu.js")(bot) //for slash cmds
