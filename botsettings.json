@@ -1,4 +1,8 @@
 {
     "token": "ODY5ODA2MzI5ODk4ODY4Nzg2.YQDkRQ.7tcXz8ZPH-_iGGHEVIVAJ_9pezc",
-    "prefix": "?"
+    "prefix": "?",
+
+    
+    "maximum_leaderboard": "50",
+    "embedcolor": "#118fff"
 }

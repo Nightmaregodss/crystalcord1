@@ -1,5 +1,6 @@
 const Discord = require('discord.js');
 const botsettings = require('./botsettings.json');
+const xpfile = require('./xp.json');
 
 const bot = new Discord.Client({disableEveryone: true});
 
@@ -32,18 +33,57 @@ fs.readdir("./commands/", (err, files) => {
     });
 });
 
-bot.on("message", async message => {
-    if(message.author.bot || message.channel.type === "dm") return;
+bot.on("message" ,function(message) {
+    if(message.author.bot) return;
+    var addXP = Math.floor(Math.random() * 10); //when i type addXP it will randomly choose a number between 1-10   [  Math.floor(Math.random() * 10)  ]
+// lvl 1 statics
+    if(!xpfile[message.author.id]) {
+        xpfile[message.author.id] = {
+           xp: 0,
+           level: 1,
+           reqxp: 100
+        }
+// catch errors
+       fs.writeFile("./xp.json",JSON.stringify(xpfile),function(err){ 
+        if(err) console.log(err)
+       })
+    }
 
-    let prefix = botsettings.prefix;
-    let messageArray = message.content.split(" ");
-    let cmd = messageArray[0];
-    let args = message.content.substring(message.content.indexOf(' ')+1);
+    xpfile[message.author.id].xp += addXP
 
-    if(!message.content.startsWith(prefix)) return;
-    let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)))
-    if(commandfile) commandfile.run(bot,message,args)
+    if(xpfile[message.author.id].xp > xpfile[message.author.id].reqxp){
+        xpfile[message.author.id].xp -= xpfile[message.author.id].reqxp // it will subtrsct xp whenever u pass a lvl
+        xpfile[message.author.id].reqxp *= 2 // XP you need to increase if level 1 is 100 xp so lvl 2 will 200 xp (multiplied by 2 [   .reqxp *= 2  ])
+        xpfile[message.author.id].reqxp = Math.floor(xpfile[message.author.id].reqxp) // XP Round
+        xpfile[message.author.id].level += 1 // it add 1 level when u level up
 
+// this code will send (" you are now level [your lvl]!") then it will delete it after 10 seconds        
+        message.reply("You Are Now Level **"+xpfile[message.author.id].level+"**!").then( 
+            msg=>msg.delete({timeout: "10000"})
+        )
+
+    }
+// catch errors
+    fs.writeFile("./xp.json",JSON.stringify(xpfile),function(err){
+        if(err) console/log(err)
+    })
+
+    //if someone typed in chat =level it will make a embed 
+    if(message.content.startsWith("?level")){
+        let user = message.mentions.users.first() || message.author
+
+        let embed = new Discord.MessageEmbed()
+        .setTitle("Level Card")
+        .setColor("GREEN")
+        .addField("Level: ",xpfile[user.id].level)
+        .addField("XP: ", xpfile[user.id].xp+"/"+xpfile[user.id].reqxp)
+        .addField("XP Required: ",xpfile[user.id].reqxp)
+        message.channel.send(embed)
+    }
+
+
+
+        
 })
 
 bot.login(botsettings.token);
@@ -158,11 +198,8 @@ s4d.client.on('message', async (s4dmessage) => {
 });
 
 s4d.client.on('message', async (s4dmessage) => {
-<<<<<<< HEAD
-    if (String(((s4dmessage.content).toUpperCase())).includes(String('?addrole '))) {
-=======
     if (String(((s4dmessage.content).toUpperCase())).includes(String('?ADD ROLEB '))) {
->>>>>>> e2107bb92e46db3dbb786c0a4915e933fe534839
+ e2107bb92e46db3dbb786c0a4915e933fe534839
         my_1 = '0';
         if ((s4dmessage.member).hasPermission('MANAGE_ROLES')) {
             s4d.database.delete(String('r'));
