@@ -1,7 +1,7 @@
 const Discord = require('discord.js');
 const botsettings = require('./botsettings.json');
 const xpfile = require('./xp.json');
-const music = require('./music.js');
+const music = require('./music');
 
 const bot = new Discord.Client({disableEveryone: true});
 
