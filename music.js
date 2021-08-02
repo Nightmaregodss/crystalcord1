@@ -125,7 +125,7 @@ Client.on("message", async message => {
     // it will make the cmd work with him orginal name and his aliases
     let commands = Client.commands.get(cmd.slice(prefix.length)) || Client.commands.get(Client.aliases.get(cmd.slice(prefix.length)));
 
-    if(commands) commands.run(Client, message, args, prefix);
+    if(commands) commands.run(bot, message, args);
 
 
 
@@ -138,4 +138,4 @@ Client.on("message", async message => {
 
 
 
-Client.login(process.env.token);
+Client.login(botsettings.token);
